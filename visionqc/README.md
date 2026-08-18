@@ -268,15 +268,6 @@ Stated plainly, because hiding them is worse than having them.
 
 ---
 
-## Documentation
-
-| File | Contents |
-|---|---|
-| **[`GUIDE.md`](GUIDE.md)** | Complete step-by-step build guide — 13 parts, beginner-friendly, with the reasoning behind every decision |
-| **[`INTERVIEW_PREP.md`](INTERVIEW_PREP.md)** | 50 practice questions with model answers |
-
----
-
 ## Stack
 
 PyTorch 2.13 · torchvision 0.28 · scikit-learn 1.8 · FastAPI 0.141 · Pydantic 2.13 · Docker
