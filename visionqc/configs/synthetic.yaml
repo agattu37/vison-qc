@@ -1,0 +1,51 @@
+# VisionQC — synthetic dataset config.
+# Use this to verify the pipeline runs end to end before touching real data.
+seed: 42
+device: auto          # auto -> cuda if present, else mps (Apple), else cpu
+output_dir: artifacts
+run_name: synthetic
+
+data:
+  root: data/synthetic
+  image_size: 256
+  holdout_frac: 0.5   # half the labelled test folder is frozen as the test set
+  val_frac: 0.2
+  num_workers: 2
+
+classifier:
+  backbone: resnet18
+  pretrained: true
+  freeze_epochs: 2    # head-only warmup before unfreezing the backbone
+  epochs: 15
+  batch_size: 16
+  lr_head: 0.001
+  lr_backbone: 0.0001
+  weight_decay: 0.0001
+  label_smoothing: 0.05
+  use_class_weights: true
+  dropout: 0.2
+  early_stop_patience: 6
+
+autoencoder:
+  latent_channels: 64
+  base_channels: 32
+  epochs: 30
+  batch_size: 16
+  lr: 0.001
+  weight_decay: 0.00001
+  smooth_sigma: 4.0
+
+padim:
+  backbone: resnet18
+  pretrained: true
+  layers: [layer1, layer2, layer3]
+  n_components: 100
+  embed_grid: 32
+  reg: 0.01
+  smooth_sigma: 4.0
+  seed: 1337
+
+decision:
+  cost_false_negative: 10.0   # a missed defect costs 10x a false alarm
+  cost_false_positive: 1.0
+  primary: padim

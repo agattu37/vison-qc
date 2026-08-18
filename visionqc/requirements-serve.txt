@@ -1,0 +1,13 @@
+# Serving-only dependencies — used by the Docker image.
+# Excludes matplotlib, scipy, sklearn, pandas, pytest: none are needed to answer
+# a request, and leaving them out cuts the image size substantially.
+torch>=2.13,<3.0
+torchvision>=0.28,<0.29
+numpy>=2.4,<3.0
+pillow>=12.1,<13.0
+matplotlib>=3.10,<4.0       # only for colour maps in the heatmap overlay
+fastapi>=0.141,<0.142
+uvicorn[standard]>=0.52,<0.53
+pydantic>=2.13,<3.0
+python-multipart>=0.0.32
+pyyaml>=6.0,<7.0

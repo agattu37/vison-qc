@@ -1,0 +1,40 @@
+# VisionQC dependencies — versions verified current as of August 2026.
+#
+# WHY PINNED WITH >=,<  : a bare `torch` installs whatever is current the day
+# someone clones your repo, and a major version bump breaks your project months
+# after you stopped touching it. Compatible-release bounds keep patch fixes
+# flowing while blocking breaking majors. This is the version discipline an
+# interviewer means by "reproducible".
+
+# --- core modelling -------------------------------------------------------
+torch>=2.13,<3.0
+torchvision>=0.28,<0.29
+
+# --- numerics / data ------------------------------------------------------
+numpy>=2.4,<3.0
+scipy>=1.17,<2.0            # gaussian_filter, used only by the data generator
+scikit-learn>=1.8,<2.0      # AUROC / AUPR / confusion matrix
+pillow>=12.1,<13.0
+pandas>=3.0,<4.0            # optional: convenient for slicing predictions.csv
+
+# --- visualisation --------------------------------------------------------
+matplotlib>=3.10,<4.0
+
+# NOTE: no OpenCV. Most anomaly-detection repos pull it in for Gaussian blur and
+# colour maps; we implement blur as a separable conv in torch and use
+# matplotlib's colour maps. That drops a large, C-heavy dependency that just
+# went through a major version bump (5.x) — one less thing to break your build.
+
+# --- serving --------------------------------------------------------------
+fastapi>=0.141,<0.142
+uvicorn[standard]>=0.52,<0.53
+pydantic>=2.13,<3.0
+python-multipart>=0.0.32    # required for multipart/form-data file uploads
+
+# --- config / UX ----------------------------------------------------------
+pyyaml>=6.0,<7.0
+tqdm>=4.70,<5.0
+
+# --- dev / test -----------------------------------------------------------
+pytest>=9.1,<10.0
+httpx>=0.28,<0.29           # FastAPI's TestClient transport

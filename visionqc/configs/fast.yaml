@@ -1,0 +1,11 @@
+# Tiny/fast config — for CI, smoke tests, and "does my machine work?" checks.
+# Numbers from this config are NOT meaningful; it exists to exercise code paths.
+seed: 42
+device: cpu
+output_dir: artifacts
+run_name: fast
+data: {root: data/synthetic, image_size: 128, holdout_frac: 0.5, val_frac: 0.25, num_workers: 0}
+classifier: {backbone: resnet18, pretrained: true, freeze_epochs: 1, epochs: 2, batch_size: 8, lr_head: 0.001, lr_backbone: 0.0001, early_stop_patience: 5}
+autoencoder: {latent_channels: 32, base_channels: 16, epochs: 2, batch_size: 8, lr: 0.001}
+padim: {backbone: resnet18, pretrained: true, n_components: 50, embed_grid: 16, reg: 0.01, smooth_sigma: 3.0}
+decision: {cost_false_negative: 10.0, cost_false_positive: 1.0, primary: padim}
